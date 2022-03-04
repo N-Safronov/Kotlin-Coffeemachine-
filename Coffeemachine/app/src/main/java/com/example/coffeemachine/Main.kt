@@ -1,5 +1,7 @@
 package com.example.coffeemachine
 
-fun main() {
-    println("Hello world")
+fun main()
+{
+    val Interface = Interface()
+    Interface.start();
 }
