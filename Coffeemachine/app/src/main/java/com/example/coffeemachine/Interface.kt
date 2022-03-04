@@ -11,7 +11,7 @@ class Interface
     {
         printMessageText(1);
         сheckingMachine()
-        val running: Boolean = true
+        var running: Boolean = true
 
         while (running)
         {
@@ -21,7 +21,7 @@ class Interface
             {
                 when (input.toInt())
                 {
-                    0 -> exitMode(running)
+                    0 -> running = exitMode()
                     1 -> drinnksMenu()
                     2 -> godMode()
                     else -> {
@@ -40,18 +40,32 @@ class Interface
     {
         when (input)
         {
-            1 -> print("Hello!")
-            2 -> print("0 - Exit / 1 - Drinks menu / 2 - God 'mode")
-            3 -> print("")
+            1 -> print("Hello!\n")
+            2 -> print("0 - Exit / 1 - Drinks menu / 2 - God 'mode\n")
+            3 -> print("1 - Restart / 0 - Power off\n")
             else -> {
-                print("Please enter a valid number!")
+                print("Error")
             }
         }
     }
 
-    private fun exitMode(running: Boolean)
+//    private exitNow(exitFunc: () -> Void) {
+//
+//    }
+
+    private fun exitMode() : Boolean
     {
-       // return running = false
+        printMessageText(3)
+        val input = readLine().toString()
+        when (input.toInt())
+        {
+            0 -> println("OK)!")
+            1 -> start()
+            else -> {
+                print("Please enter a valid number!")
+            }
+        }
+        return false
     }
 
     private fun сheckingMachine()
