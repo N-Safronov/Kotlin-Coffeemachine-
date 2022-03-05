@@ -1,0 +1,41 @@
+{
+  "name": "Saeco New Royal Black",
+  "volumeWater": 2500,
+  "volumeMilk": 1000,
+  "volumeLemonJuice": 1000,
+  "volumeIceCream":100,
+  "volumeCream":500,
+  "ingredientsArray": {
+    "espresso": "1",
+    "dose_of_caffeine": "2",
+    "water": "3",
+    "milk": "4",
+    "frothed_milk": "5",
+    "whipped_cream": "6",
+    "syrup": "7",
+    "lemon_juice": "8",
+    "cream": "9",
+    "ice_cream": "A",
+    "grated_chocolate": "B",
+    "chocolate": "C",
+    "reduced_dose_of_caffeine": "D"
+  },
+  "recipesArray": {
+    "espresso": "1",
+    "doppio": "11",
+    "ristreto": "12",
+    "lungo": "11D",
+    "americano": "1333",
+    "cappuccino": "1455",
+    "macchiato": "15",
+    "latte": "1445",
+    "con_panna": "16",
+    "vienna_coffee": "166",
+    "latte_macchiato": "1446",
+    "raf_coffee": "77155",
+    "romano": "18",
+    "glace": "11AB",
+    "mocha": "CC146",
+    "marocchino": "CC155"
+  }
+}
