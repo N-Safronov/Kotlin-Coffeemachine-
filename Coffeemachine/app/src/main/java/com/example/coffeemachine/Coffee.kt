@@ -2,22 +2,35 @@ package com.example.coffeemachine
 
 class Coffee
 {
-    private val name: String
-    private val recipe: String
-    private val volume: String
-    private val temperature : Int
+    var name: String
+        private set
+    var recipe: String
+        private set
+    var volumeCaffeine: Int
+        private set
+    var volumeWater: Int
+        private set
+    var volumeMilk: Int
+        private set
+    var volumeCream: Int
+        private set
 
     constructor() {
-        name = "default"
-        recipe = "non"
-        volume = "0"
-        temperature = 0
+        name = "Espresso"
+        recipe = "Espresso"
+        volumeCaffeine = 2
+        volumeWater = 35
+        volumeMilk = 0
+        volumeCream = 0
     }
 
-    constructor(_name: String, _recipe: String, _volume: String, _temperature: Int) {
+    constructor(_name: String, _recipe: String, _volumeCaffeine: Int , _volumeWater: Int,
+                _volumeMilk: Int, _volumeCream: Int) {
         name = _name
         recipe = _recipe
-        volume = _volume
-        temperature = _temperature
+        volumeCaffeine = _volumeCaffeine
+        volumeWater = _volumeWater
+        volumeMilk = _volumeMilk
+        volumeCream = _volumeCream
     }
 }

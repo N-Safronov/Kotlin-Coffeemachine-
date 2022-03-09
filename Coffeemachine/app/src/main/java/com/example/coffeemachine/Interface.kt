@@ -2,10 +2,11 @@ package com.example.coffeemachine
 
 class Interface
 {
+    private val coffeeMachine = CoffeeMachine()
+
     fun start()
     {
-        CoffeeMachine().start()
-        сheckingMachine()
+        coffeeMachine.start()
         dialog();
     }
 
@@ -44,22 +45,22 @@ class Interface
             1 -> print("Hello!\n")
             2 -> print("Please enter a valid number!\n")
             3 -> print("0 - Power off / 1 - Drinks menu / 2 - God 'mode\n")
-            4 -> print("Checking the status of the coffee machine.....\n")
             else -> {
                 print("Error")
             }
         }
     }
 
-    private fun сheckingMachine()
-    {
-        printMessageText(4)
-        CoffeeMachine().сhecking()
-    }
 
     private fun drinnksMenu()
     {
+        /* var coffee: List<Coffee> = CoffeeMachine().getCoffee()
 
+       for(i in coffee){
+            println(coffee)
+        }*/
+
+       println(coffeeMachine.createDrink("Doppio", 2))
     }
 
     private fun godMode(){
