@@ -2,17 +2,18 @@ package com.example.coffeemachine
 
 class CoffeeMachine(
     private val name: String = "Default"
-)  {
+)
+{
     private var coffeeBean: Int by Delegate(1000, 1000)
     private var volumeWater: Int by Delegate(1000, 1000)
     private var volumeMilk: Int by Delegate(1000, 1000)
     private var volumeCream: Int by Delegate(1000, 1000)
-    private var state: Int by Delegate(100, 100)
+    private var state: Int by Delegate(10, 10)
     private var coffee: Map<String, Coffee> = mapOf(
         "Espresso" to Coffee("Espresso", "Espresso",
             2, 40, 0, 0),
         "Doppio" to Coffee("Doppio", "Double dose Espresso",
-            2, 400, 0, 0),
+            2, 40, 0, 0),
         "Ristretto" to Coffee("Ristretto", "Espresso + Double dose of caffeine",
             3, 40, 0, 0),
         "Lungo" to  Coffee("Lungo", "Espresso + Reduced dose of caffeine",
@@ -47,54 +48,63 @@ class CoffeeMachine(
     fun addIngredientCream(ingredient : Int) { volumeCream += ingredient }
 
 
-    fun сheckIngredient(amount : Int, ingredient: Int):Boolean
+    private fun сheckIngredient(remainingIngredient: Int, amount : Int, ingredient: Int):Boolean
     {
-        if(coffeeBean >= ingredient * 2 * amount) //!!!!!!!!!!eror
+        if(remainingIngredient >= ingredient * amount)
         {
             return true
         }
         return false
     }
 
-    fun spendingIngredient(name: String, amount : Int)
+    private fun spendingIngredient(name: String, amount : Int)
     {
-            coffeeBean -= coffee[name]!!.volumeCaffeine * amount
-            volumeWater -= coffee[name]!!.volumeWater * amount
-            volumeMilk -= coffee[name]!!.volumeMilk * amount
-            volumeCream -= coffee[name]!!.volumeCream * amount
+        coffeeBean -= coffee[name]!!.volumeCaffeine * amount
+        volumeWater -= coffee[name]!!.volumeWater * amount
+        volumeMilk -= coffee[name]!!.volumeMilk * amount
+        volumeCream -= coffee[name]!!.volumeCream * amount
+    }
+
+    private fun сheckState()
+    {
+        if (state <= 0 )
+        {
+            machineCleaning()
+        }
+    }
+
+    fun machineCleaning()
+    {
+        volumeWater -= 20
+        println("Coffee machine is being cleaned!")
+        doWork("cleaned")
     }
 
     fun createDrink(name: String, amount : Int)
     {
-        if(сheckIngredient(amount, coffee[name]!!.volumeCaffeine) &&
-            сheckIngredient(amount, coffee[name]!!.volumeWater) &&
-            сheckIngredient(amount, coffee[name]!!.volumeMilk) &&
-            сheckIngredient(amount, coffee[name]!!.volumeCream)
+        if(сheckIngredient(coffeeBean, amount, coffee[name]!!.volumeCaffeine) &&
+            сheckIngredient(volumeWater, amount, coffee[name]!!.volumeWater) &&
+            сheckIngredient(volumeMilk, amount, coffee[name]!!.volumeMilk) &&
+            сheckIngredient( volumeCream, amount, coffee[name]!!.volumeCream)
         )
         {
             for (i in 1..amount) {
+                сheckState()
+                println("All right!")
                 spendingIngredient(name, amount)
-                println("Drrrr")
-                doWork()
-                println("$i : $name")
+                doWork(name)
+                println("$i : $name\n")
             }
         }
         else
         {
-            println("NO INGRIDIENT")
+            println("NO INGRIDIENT!")
         }
     }
 
-    fun menuDrink()
-    {
-        /*coffee[1].name
-        for (i in coffee)
-        {
-            println()
-        }*/
-    }
 
-    fun doWork() {
+    private fun doWork(name : String) {
+        println("Please wait :)\nGoing on $name\nDrrrr")
         for (i in 0..3) {
             Thread.sleep(1000)
             print(".")
