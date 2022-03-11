@@ -39,13 +39,22 @@ class CoffeeMachine(
         //у меня была идея, но с json не получилось
     }
 
-    fun addIngredientBean(ingredient : Int) { coffeeBean += ingredient }
+    fun addIngredientBeanMax() { coffeeBean = 1000 }
 
-    fun addIngredientWater(ingredient : Int) { volumeWater += ingredient }
+    fun addIngredientWaterMax() { volumeWater = 1000 }
 
-    fun addIngredientMilk(ingredient : Int) { volumeMilk += ingredient }
+    fun addIngredientMilkMax() { volumeMilk = 1000 }
 
-    fun addIngredientCream(ingredient : Int) { volumeCream += ingredient }
+    fun addIngredientCreamMax() { volumeCream = 1000 }
+
+
+    fun getIngredientBean() : Int { return coffeeBean }
+
+    fun getIngredientWater() : Int { return volumeWater }
+
+    fun getIngredientMilk() : Int { return volumeMilk }
+
+    fun getIngredientCream() : Int { return volumeCream }
 
 
     private fun сheckIngredient(remainingIngredient: Int, amount : Int, ingredient: Int):Boolean
@@ -57,26 +66,20 @@ class CoffeeMachine(
         return false
     }
 
-    private fun spendingIngredient(name: String, amount : Int)
+    private fun spendingIngredient(_coffeeBean: Int, _volumeWater: Int, _volumeMilk: Int, _volumeCream: Int)
     {
-        coffeeBean -= coffee[name]!!.volumeCaffeine * amount
-        volumeWater -= coffee[name]!!.volumeWater * amount
-        volumeMilk -= coffee[name]!!.volumeMilk * amount
-        volumeCream -= coffee[name]!!.volumeCream * amount
+        coffeeBean -= _coffeeBean
+        volumeWater -= _volumeWater
+        volumeMilk -= _volumeMilk
+        volumeCream -= _volumeCream
+        state -= 1
     }
 
-    private fun сheckState()
-    {
-        if (state <= 0 )
-        {
-            machineCleaning()
-        }
-    }
-
-    fun machineCleaning()
+    private fun machineCleaning()
     {
         volumeWater -= 20
         println("Coffee machine is being cleaned!")
+        state = 10
         doWork("cleaned")
     }
 
@@ -88,10 +91,15 @@ class CoffeeMachine(
             сheckIngredient( volumeCream, amount, coffee[name]!!.volumeCream)
         )
         {
-            for (i in 1..amount) {
-                сheckState()
+            for (i in 1..amount)
+            {
+                if(state <= 0)
+                {
+                    machineCleaning()
+                }
                 println("All right!")
-                spendingIngredient(name, amount)
+                spendingIngredient(coffee[name]!!.volumeCaffeine, coffee[name]!!.volumeWater,
+                    coffee[name]!!.volumeMilk, coffee[name]!!.volumeCream)
                 doWork(name)
                 println("$i : $name\n")
             }
@@ -102,6 +110,36 @@ class CoffeeMachine(
         }
     }
 
+    fun createDrink(amount : Int, _coffeeBean: Int, _volumeWater: Int, _volumeMilk: Int, _volumeCream: Int)
+    {
+        if(сheckIngredient(coffeeBean, amount, _coffeeBean) &&
+            сheckIngredient(volumeWater, amount, _volumeWater) &&
+            сheckIngredient(volumeMilk, amount, _volumeMilk) &&
+            сheckIngredient( volumeCream, amount, _volumeCream)
+        )
+        {
+            for (i in 1..amount)
+            {
+                if(state <= 0)
+                {
+                    machineCleaning()
+                }
+                println("All right!")
+                spendingIngredient(_coffeeBean, _volumeWater, _volumeMilk, _volumeCream)
+                doWork("Your drink")
+                println("$i : Your drink\n")
+            }
+        }
+        else
+        {
+            println("NO INGRIDIENT!")
+        }
+    }
+
+    fun getRecipe(name: String) : String
+    {
+        return coffee[name]!!.recipe
+    }
 
     private fun doWork(name : String) {
         println("Please wait :)\nGoing on $name\nDrrrr")

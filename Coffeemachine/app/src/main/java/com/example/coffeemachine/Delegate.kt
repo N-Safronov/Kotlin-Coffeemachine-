@@ -11,9 +11,9 @@ class Delegate(
         return innerValue
     }
     operator fun setValue(coffeeMachine: CoffeeMachine, property: KProperty<*>, value: Int) {
-        if(value < 0 || value >= max) {
+       /* if(value > 0 || value > max) {
             return
-        }
+        }*/
         innerValue = value
     }
 }
