@@ -4,10 +4,14 @@ class CoffeeMachine(
     private val name: String = "Default"
 )
 {
-    private var coffeeBean: Int by Delegate(1000, 1000)
-    private var volumeWater: Int by Delegate(1000, 1000)
-    private var volumeMilk: Int by Delegate(1000, 1000)
-    private var volumeCream: Int by Delegate(1000, 1000)
+    var coffeeBean: Int by Delegate(1000, 1000)
+        private set
+    var volumeWater: Int by Delegate(1000, 1000)
+        private set
+    var volumeMilk: Int by Delegate(1000, 1000)
+        private set
+    var volumeCream: Int by Delegate(1000, 1000)
+        private set
     private var state: Int by Delegate(10, 10)
     private var coffee: Map<String, Coffee> = mapOf(
         "Espresso" to Coffee("Espresso", "Espresso",
@@ -46,16 +50,6 @@ class CoffeeMachine(
     fun addIngredientMilkMax() { volumeMilk = 1000 }
 
     fun addIngredientCreamMax() { volumeCream = 1000 }
-
-
-    fun getIngredientBean() : Int { return coffeeBean }
-
-    fun getIngredientWater() : Int { return volumeWater }
-
-    fun getIngredientMilk() : Int { return volumeMilk }
-
-    fun getIngredientCream() : Int { return volumeCream }
-
 
     private fun сheckIngredient(remainingIngredient: Int, amount : Int, ingredient: Int):Boolean
     {
